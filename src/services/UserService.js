@@ -1,5 +1,4 @@
-import router from "@/router";
-import routerapp from "@/router/index"
+
 class UserService {
     isConnected= false;
     login(myPseudo, myMotDePasse) {
@@ -82,5 +81,10 @@ class UserService {
     }
 
 }
+module.exports = {
+    UserService
+}
+
+
 
 export default new UserService();
