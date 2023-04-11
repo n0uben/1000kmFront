@@ -17,7 +17,7 @@ export default {
   <nav id="navig" class="navbar navbar-expand-md py-4">
     <!-- conteneur, mettre container-fluid pour supprimer les marges horizontales automatiques  -->
     <div class="container ">
-      <img id="logo" src="./../assets/images/logo.png"/>
+      <img id="logo" src="./../assets/images/logo.png" alt="logo 1000km"/>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
                     <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>

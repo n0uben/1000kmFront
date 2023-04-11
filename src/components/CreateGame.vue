@@ -1,7 +1,7 @@
 <script>
 import CreateGameAnonyme from "@/components/CreateGameAnonyme.vue";
 import CreateGameAuth from "@/components/CreateGameAuth.vue";
-import carteService from "@/services/CarteService";
+
 
 export default {
   name: "CreateGame",
