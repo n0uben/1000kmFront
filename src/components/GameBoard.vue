@@ -1,5 +1,4 @@
 <script>
-import router from "@/router";
 
 export default {
   name: "GameBoard",
@@ -52,7 +51,7 @@ export default {
     },
 
     splitSrc(src){//recupere nom de l'image dans le path
-      var splitted = src.split('/');
+      let splitted = src.split('/');
       return splitted[splitted.length-1];
     },
 
@@ -78,44 +77,26 @@ export default {
 <template>
   <div class="container" id="roads">
     <div class="row">
-      <img class="player" src="../assets/images/skyline_sprite.png"/>
+      <img class="player" src="../assets/images/skyline_sprite.png" alt="votre véhicule"/>
       <div class="road">
       </div>
     </div>
-<!--    <div class="row ">-->
-<!--      <img class="player" src="../assets/images/skyline_sprite.png"/>-->
-<!--      <div class="road">-->
-
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="row ">-->
-<!--      <img class="player" src="../assets/images/skyline_sprite.png"/>-->
-<!--      <div class="road">-->
-
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="row ">-->
-<!--      <img class="player" src="../assets/images/skyline_sprite.png"/>-->
-<!--      <div class="road">-->
-
-<!--      </div>-->
-<!--    </div>-->
   </div>
   <div class="container" id="cards">
     <div class="row" id="linecards">
       <div class="col-2" id="pioche">
-        <img id="cartepioche" src="" @click="piocheCarte($event)">
+        <img id="cartepioche" src="" @click="piocheCarte($event)" alt="pioche">
       </div>
       <div class="col-6 offset-1" id="main">
-        <img id="carte1" src="" draggable="true" @dragstart="dragstart($event)">
-        <img id="carte2" src="" draggable="true" @dragstart="dragstart($event)">
-        <img id="carte3" src="" draggable="true" @dragstart="dragstart($event)">
-        <img id="carte4" src="" draggable="true" @dragstart="dragstart($event)">
-        <img id="carte5" src="" draggable="true" @dragstart="dragstart($event)">
-        <img id="carte6" src="" draggable="true" @dragstart="dragstart($event)">
+        <img id="carte1" src="" draggable="true" @dragstart="dragstart($event)" alt="carte n°1">
+        <img id="carte2" src="" draggable="true" @dragstart="dragstart($event)" alt="carte n°2">
+        <img id="carte3" src="" draggable="true" @dragstart="dragstart($event)" alt="carte n°3">
+        <img id="carte4" src="" draggable="true" @dragstart="dragstart($event)" alt="carte n°4">
+        <img id="carte5" src="" draggable="true" @dragstart="dragstart($event)" alt="carte n°5">
+        <img id="carte6" src="" draggable="true" @dragstart="dragstart($event)" alt="carte n°6">
       </div>
       <div class="col-2 offset-1" id="defosse" @dragover="dragover($event)" @drop="dropDefosse($event)">
-        <img id="cartedefosse" src="" style="width: 60%">
+        <img id="cartedefosse" src="" style="width: 60%" alt="defosse">
       </div>
     </div>
   </div>
@@ -136,10 +117,6 @@ export default {
   height: 20px;
   background-color: green;
   margin-bottom: 5%;
-}
-
-#cards{
-
 }
 
 #linecards{

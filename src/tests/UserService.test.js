@@ -15,6 +15,8 @@ describe('window.location', () => {
         window.location = location;
     });
 
+    it('')
+
     it('login doit reussir',() => {
         let userService = new UserService();
         userService.login("brandon54","azerty");

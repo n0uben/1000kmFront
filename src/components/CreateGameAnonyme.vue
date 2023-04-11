@@ -9,8 +9,8 @@ export default {
   methods: {
     onClickReroll(){
       let img = document.getElementById("car");
-      var current = img.src.split("/")[img.src.split("/").length-1];
-      var rand = Math.floor(Math.random() * this.imgnames.length);
+      let current = img.src.split("/")[img.src.split("/").length-1];
+      let rand = Math.floor(Math.random() * this.imgnames.length);
       while(this.imgnames[rand]==current){
         rand = Math.floor(Math.random() * this.imgnames.length);
       }
@@ -23,8 +23,8 @@ export default {
 
 <template>
   <div class="col-6 text-center">
-    <img id="car" src="./../assets/images/205.jpg"/><br>
-    <img id="reroll" src="./../assets/images/reroll.png" @click="onClickReroll()"/><br><br>
+    <img id="car" src="./../assets/images/205.jpg" alt="votre avatar"/><br>
+    <img id="reroll" src="./../assets/images/reroll.png" @click="onClickReroll()" alt="bouton reroll"/><br><br>
   </div>
   <div class="col-6 text-center">
     <label for="perso" style="font-size: 25px;font-weight: bold">Votre Pseudo :</label><br><br>

@@ -18,14 +18,12 @@ export default {
   },
   methods: {
     onClickAuth(event){
-
       if(event.currentTarget.id!=this.current){//si on n'a pas cliqué deux fois de suite sur la meme div
         this.isAuth=!this.isAuth;
         if(this.isAuth){
           let auth=document.getElementById("auth")
           auth.style.backgroundColor="#5f5f5f";
           auth.style.color="white";
-          let perso=document.getElementById("perso");
           let anonym = document.getElementById("anonyme");
           anonym.style.backgroundColor="white";
           anonym.style.color="black";
@@ -33,7 +31,6 @@ export default {
           let auth=document.getElementById("auth")
           auth.style.backgroundColor="white";
           auth.style.color="black";
-          let perso=document.getElementById("perso");
           let anonym = document.getElementById("anonyme");
           anonym.style.backgroundColor="#5f5f5f";
           anonym.style.color="white";
@@ -41,9 +38,6 @@ export default {
         this.current=event.currentTarget.id;//id le la div dernierement cliquée
       }
     },
-    testApi(event) {
-      carteService.getAll().then(response => console.log(response.data))
-    }
   }
 }
 </script>

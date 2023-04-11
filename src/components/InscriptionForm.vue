@@ -16,8 +16,8 @@ export default {
     },
 
     onChangeConfirmer(e){
-      var confirmer = e.target;
-      var btn = document.getElementById("valider");
+      let confirmer = e.target;
+      let btn = document.getElementById("valider");
       if(this.motDePasse!=confirmer.value){
         confirmer.style.borderColor="red";
         btn.disabled=true;
@@ -65,7 +65,3 @@ export default {
   </div>
 
 </template>
-
-<style scoped>
-
-</style>

@@ -14,7 +14,7 @@ export default {
 
   methods: {
     setJoueurs(){
-      for(var i=1;i<=this.nbJoueurs;i++){
+      for(let i=1;i<=this.nbJoueurs;i++){
         document.getElementById("joueur"+i).style.backgroundColor="#cb5b5b";
       }
     },

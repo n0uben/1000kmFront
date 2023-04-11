@@ -32,6 +32,4 @@ export default {
   </body>
 </template>
 
-<style scoped>
 
-</style>

@@ -2,11 +2,6 @@
 class UserService {
     isConnected= false;
     login(myPseudo, myMotDePasse) {
-        // const auth = window.btoa(`${pseudo}:${motDePasse}`);
-
-        // const requestOptions = {
-        //     headers: {'Authorization' : 'Basic ' + auth}
-        // }
 
         return fetch('http://localhost:8080/utilisateur/connexion', {
             method: "POST",
@@ -81,9 +76,9 @@ class UserService {
     }
 
 }
-module.exports = {
+/*module.exports = {
     UserService
-}
+}*/
 
 
 

@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import router from "@/router";
 import userService from "@/services/UserService";
 
 export default {
@@ -56,7 +55,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

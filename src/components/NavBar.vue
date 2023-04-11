@@ -26,12 +26,12 @@ export default {
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <!-- active = element actuellement selectionné -->
+          <li class="nav-item px-3" v-if="username">
+            <a class="nav-link fw-bold" >{{username['pseudo']}}</a>
+          </li>
           <li class="nav-item px-3">
             <router-link class="nav-link fw-bold" to="/">Créer partie</router-link>
           </li>
-<!--          <li class="nav-item px-3">-->
-<!--            <a class="nav-link fw-bold" href="">Rejoindre partie</a>-->
-<!--          </li>-->
           <li class="nav-item px-3">
             <router-link class="nav-link fw-bold" to="/connexion" v-if="!username">Se Connecter</router-link>
           </li>
