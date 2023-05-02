@@ -30,7 +30,7 @@ export default {
             <a class="nav-link fw-bold" >{{username['pseudo']}}</a>
           </li>
           <li class="nav-item px-3">
-            <router-link class="nav-link fw-bold" to="/">Créer partie</router-link>
+            <router-link class="nav-link fw-bold" to="/attente">Créer partie</router-link>
           </li>
           <li class="nav-item px-3">
             <router-link class="nav-link fw-bold" to="/connexion" v-if="!username">Se Connecter</router-link>
