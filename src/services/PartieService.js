@@ -19,6 +19,10 @@ class PartieService {
 
         return http.post("/partie/creer", partie)
     }
+
+    getPartieByCode(code) {
+        return http.get("/partie/code/" + code);
+    }
 }
 
 export default new PartieService();
