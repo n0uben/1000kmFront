@@ -2,7 +2,7 @@
 export default {
   name: "CreateGameAuth",
   props: {
-    username: String
+    username: Object
   },
   methods: {
     onClickConnecter(){

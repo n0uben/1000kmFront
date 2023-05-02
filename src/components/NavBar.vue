@@ -7,7 +7,7 @@ export default {
     }
   },
   props: {
-    username: String
+    username: Object
   },
 
 }

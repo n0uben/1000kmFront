@@ -33,6 +33,7 @@
 
 <script>
 import userService from "@/services/UserService";
+import partieService from "@/services/PartieService.js";
 
 export default {
   name: "ConnexionForm",
@@ -44,13 +45,16 @@ export default {
       returnUrl: ''
     }
   },
-  mounted () {
-
-  },
   methods: {
     handleSubmit(event) {
-      console.log(this.pseudo + ' / ' + this.motDePasse)
-      userService.login(this.pseudo, this.motDePasse).then(user => location.assign("/"))
+      userService.login(this.pseudo, this.motDePasse)
+          // .then(response => response.json())
+          .then(user => {
+              //on crée une partie avec les valeurs par défaut (4 joueurs, 45 secondes par tour, chaine vide pour le codepartie)
+              partieService.creer(user)
+                  // une fois la reponse recue, on redirige vers le lobby dattente
+                  .then(() => location.assign("/attente"));
+          })
     }
   }
 }

@@ -1,7 +1,6 @@
-
 class UserService {
     isConnected= false;
-    login(myPseudo, myMotDePasse) {
+    async login(myPseudo, myMotDePasse) {
 
         return fetch('http://localhost:8080/utilisateur/connexion', {
             method: "POST",
@@ -18,7 +17,7 @@ class UserService {
                     user.authData = window.btoa(myPseudo + ':' + myMotDePasse);
                     localStorage.setItem('user', JSON.stringify(user));
                     this.isConnected=true;
-
+                    return user;
                 }
             })
     }
