@@ -26,9 +26,9 @@ export default {
   </header>
 
   <body>
-    <section id="create">
+    <div id="main">
       <router-view :username="currentUser"/>
-    </section>
+    </div>
   </body>
 </template>
 
