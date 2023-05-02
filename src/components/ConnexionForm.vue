@@ -42,21 +42,10 @@ export default {
       users: [],
       pseudo: '',
       motDePasse: '',
-      returnUrl: '',
-      submitted: false,
     }
   },
-    created() {
-        // reset login status
-        userService.logout();
-
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.$route.query.returnUrl || '/';
-    },
     methods: {
     handleSubmit(event) {
-        this.submitted = true;
-
         //si manque au moins un des deux, abandon
         if (!(this.pseudo && this.motDePasse)) {
             return;
@@ -68,7 +57,7 @@ export default {
               //on crée une partie avec les valeurs par défaut (4 joueurs, 45 secondes par tour, chaine vide pour le codepartie)
               partieService.creer(user)
                   // une fois la reponse recue, on redirige vers le lobby dattente
-                  .then(() => location.assign(this.returnUrl));
+                  .then(() => location.assign("/attente"));
           })
     }
   }

@@ -48,6 +48,7 @@ class UserService {
     logout() {
         localStorage.removeItem('user');
         this.isConnected=false;
+        location.assign("/");
     }
 
     currentuser() {

@@ -5,15 +5,7 @@ export default {
     username: Object
   },
   methods: {
-    onClickConnecter(){
-      location.assign("/connexion");
-    },
-    onClickInscription(){
-      location.assign("/inscription");
-    },
-    onClickDemarrer(){
-      location.assign("/attente");
-    }
+
   }
 
 }
@@ -21,13 +13,13 @@ export default {
 
 <template>
   <div v-if="username==null" class="col-6 text-center">
-    <button @click="onClickConnecter" id="connecter" class="btnauth">Se Connecter</button>
+      <router-link to="/connexion"><button id="connecter" class="btnauth">Se Connecter</button></router-link>
   </div>
-  <div v-if="username==null" class="col-6 text-center">
-    <button @click="onClickInscription" id="creer" class="btnauth">Créer un compte</button>
+    <div v-if="username==null" class="col-6 text-center">
+      <router-link to="/inscription"><button id="creer" class="btnauth">Créer un compte</button></router-link>
   </div>
   <div v-if="username!=null" class="col text-center">
-    <button @click="onClickDemarrer" id="demarrer" class="btnauth">Démarrer</button>
+    <router-link to="/attente"><button id="demarrer" class="btnauth">Démarrer</button></router-link>
   </div>
 </template>
 
