@@ -1,8 +1,10 @@
 <script>
+import router from "@/router/index.js";
 export default {
     name: "Attente",
     data() {
         return {
+            codePartie:router.currentRoute.value.params.code,
             pseudo: JSON.parse(localStorage.getItem('user')).pseudo,
             nbJoueurs: 1,
         }
@@ -10,6 +12,7 @@ export default {
 
     mounted() {
         this.setJoueurs();
+        console.log("code de partie"+this.codePartie);
     },
 
     methods: {
@@ -28,6 +31,7 @@ export default {
         <div class="row align-items-center my-5">
             <div class="col">
                 <h1 class="text-center">Salle d'attente</h1>
+                <p class="text-center">Code de partie : {{this.codePartie}}</p>
             </div>
         </div>
 

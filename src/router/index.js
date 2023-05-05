@@ -5,6 +5,7 @@ import GameBoard from "@/components/GameBoard.vue";
 import InscriptionForm from "@/components/InscriptionForm.vue";
 import Attente from "@/components/Attente.vue";
 import Logout from "@/components/Logout.vue";
+import Rejoindre from "@/components/Rejoindre.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -26,12 +27,16 @@ const router = createRouter({
             component: InscriptionForm
         },
         {
-            path: '/attente',
+            path: '/attente/:code',
             component: Attente
         },
         {
             path: '/logout',
             component: Logout
+        },
+        {
+            path: '/rejoindre',
+            component: Rejoindre
         },
 
 

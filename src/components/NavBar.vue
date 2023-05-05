@@ -38,6 +38,9 @@ export default {
           <li class="nav-item px-3">
             <router-link class="nav-link fw-bold" to="/logout" v-if="username">Se déconnecter</router-link>
           </li>
+          <li class="nav-item px-3">
+            <router-link class="nav-link fw-bold" to="/rejoindre">Rejoindre Partie</router-link>
+          </li>
         </ul>
       </div>
     </div>
