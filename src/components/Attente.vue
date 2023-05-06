@@ -8,6 +8,7 @@ export default {
             codePartie:router.currentRoute.value.params.code,
             pseudo: JSON.parse(localStorage.getItem('user')).pseudo,
             nbJoueurs: 1,
+            partie: null,
             joueurs: null,
         }
     },
@@ -21,9 +22,14 @@ export default {
         getDataPartie(){
           PartieService.getPartieByCode(this.codePartie)
               .then(response => {
+                this.partie = response;
                 this.nbJoueurs=response.joueurs.length;
                 this.joueurs=response.joueurs;
-                this.setJoueurs();
+                this.setJoueurs(JSON.parse(localStorage.getItem('user')),this.partie);
+                //PartieService.quitter(JSON.parse(localStorage.getItem('user')),this.partie)
+                window.addEventListener("beforeunload", function(event) {
+                  PartieService.quitter(JSON.parse(localStorage.getItem('user')),this.partie);
+                });
               })
               .catch(error => {
                 console.log(error);
@@ -37,7 +43,14 @@ export default {
                 slot.textContent = this.joueurs[i].pseudo;
             }
         },
-    }
+        handleUnload(){
+          PartieService.quitter(JSON.parse(localStorage.getItem('user')),this.partie);
+        }
+    },
+  beforeRouteLeave(to, from, next) {
+    window.addEventListener("beforeunload", this.handleUnload);
+    next();
+  },
 }
 </script>
 

@@ -39,22 +39,53 @@ class PartieService {
             .then(response => {
                 console.log("partie recupérée : "+response);
                 let partie = response;
-                partie.joueurs.push(user);
-                console.log("partie avec joueur ajouté : "+response.joueurs);
-                this.modifier(partie)
-                    .then(response => {
-                        console.log(" partie succesfully updated ");
-                        router.push({path:"/attente/"+code})
-                        //router.push
-                    } )
-                    .catch(error => {
-                        console.log(error)
-                    })
-
+                if(this.estDansPartie(user,partie)==-1){
+                    partie.joueurs.push(user);
+                    console.log("partie avec joueur ajouté : "+response.joueurs);
+                    this.modifier(partie)
+                        .then(() => {
+                            console.log(" partie succesfully updated ");
+                            router.push({path:"/attente/"+code})
+                            //router.push
+                        } )
+                        .catch(error => {
+                            console.log(error)
+                        })
+                }else
+                    console.log("joueur deja dans partie");
             })
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    quitter(user,partie){//supprime le joueur de la liste des joueurs dans la partie
+        let existe = this.estDansPartie(user,partie)
+        console.log("existe = "+existe);
+        if(existe!=-1){
+            partie.joueurs.splice(existe, 1);
+            this.modifier(partie)
+                .then(() => {
+                    console.log(" partie succesfully updated");
+                } )
+                .catch(error => {
+                    console.log(error)
+                })
+        }else
+            console.log("joueur inconnu");
+    }
+
+    estDansPartie(user,partie){//retourne l'indice du joueur dans joueurs, -1 si pas dans la liste
+        let i=0;
+        let found=-1
+        partie.joueurs.forEach((joueur) => {
+            if(joueur.pseudo==user.pseudo){//on verifie par rapport au pseudo pour prendre en compte joueur non-inscrit
+                found=i;
+                return;
+            }
+            i++
+        })
+        return found;
     }
 
     async modifier(partie){
