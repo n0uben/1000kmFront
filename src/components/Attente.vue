@@ -1,5 +1,6 @@
 <script>
 import router from "@/router/index.js";
+import PartieService from "@/services/PartieService.js";
 export default {
     name: "Attente",
     data() {
@@ -7,18 +8,33 @@ export default {
             codePartie:router.currentRoute.value.params.code,
             pseudo: JSON.parse(localStorage.getItem('user')).pseudo,
             nbJoueurs: 1,
+            joueurs: null,
         }
     },
 
     mounted() {
-        this.setJoueurs();
+        this.getDataPartie();
         console.log("code de partie"+this.codePartie);
     },
 
     methods: {
+        getDataPartie(){
+          PartieService.getPartieByCode(this.codePartie)
+              .then(response => {
+                this.nbJoueurs=response.joueurs.length;
+                this.joueurs=response.joueurs;
+                this.setJoueurs();
+              })
+              .catch(error => {
+                console.log(error);
+              })
+        },
         setJoueurs() {
-            for (let i = 1; i <= this.nbJoueurs; i++) {
-                document.getElementById("joueur" + i).style.backgroundColor = "#cb5b5b";
+          console.log("nombre de joueurs : "+this.nbJoueurs);
+            for (let i = 0; i < this.nbJoueurs; i++) {
+                let slot = document.getElementById("joueur" + (i+1));
+                slot.style.backgroundColor = "#cb5b5b";
+                slot.textContent = this.joueurs[i].pseudo;
             }
         },
     }
@@ -41,12 +57,12 @@ export default {
                 <h2>Nombre de joueurs</h2>
                 <p id="joueur1" class="mt-4 py-2"
                    style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">
-                    {{ this.pseudo }}</p>
-                <p id="joueur1" class="mt-4 py-2"
+                    </p>
+                <p id="joueur2" class="mt-4 py-2"
                    style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">En attente...</p>
-                <p id="joueur1" class="mt-4 py-2"
+                <p id="joueur3" class="mt-4 py-2"
                    style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">En attente...</p>
-                <p id="joueur1" class="mt-4 py-2"
+                <p id="joueur4" class="mt-4 py-2"
                    style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">En attente...</p>
 <!--                <button class="py-2 px-3 mx-3 mt-4">Inviter</button>-->
                 <router-link to="/game"><button class="py-2 px-3 mx-3">Lancer</button></router-link>

@@ -1,4 +1,7 @@
 <script>
+import PartieService from "@/services/PartieService.js";
+import UserService from "@/services/UserService.js";
+
 export default {
   name: "RejoindreAuth",
   props: {
@@ -7,8 +10,13 @@ export default {
   methods: {
     getCode(){
       return document.getElementById('code').value;
-    }
+    },
+
     //mettre a jour partie.joueurs quand on rejoint une partie
+    onClickPartie(e){
+      let code = document.getElementById('code').value;
+      PartieService.rejondre(UserService.currentuser(),code);
+    }
   }
 
 }
@@ -24,7 +32,7 @@ export default {
   <div v-if="username!=null" class="col text-center">
     <label for="code">Code de la partie :</label><br>
     <input type="text" id="code"/>
-    <router-link to="/attente/{{getCode}}"><button id="demarrer" class="btnauth">Démarrer</button></router-link>
+    <button id="demarrer" class="btnauth" @click="onClickPartie($event)">Rejoindre</button>
   </div>
 </template>
 
