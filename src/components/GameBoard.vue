@@ -1,30 +1,37 @@
 <script>
 
+import PartieService from "@/services/PartieService.js";
+import router from "@/router/index.js";
+import PiocheService from "@/services/PiocheService.js";
+
 export default {
   name: "GameBoard",
   data () {
     return {
-      pioche: [],
+      pioche: null,
       main: [],
       defosse: [],
       imgCard: "",//image de la carte
       carteDragged: null,//carte prise dans la pioche
       pathImgs: "src/assets/images/Cartes/",
-      droppedCards: [],//cartes de la main posées dans la défosse
+      droppedCards: [],//cartes de la main posées dans la défosse,
+      partie:null,
+      codePartie: router.currentRoute.value.params.code
     }
   },
   mounted () {
-    this.pioche.push({"id":12,"nom":"25 Km","effet":"km","nbdispo":4,"img":"25kmh.PNG"});
+    this.getDataPartie();
+    /*this.pioche.push({"id":12,"nom":"25 Km","effet":"km","nbdispo":4,"img":"25kmh.PNG"});
     this.pioche.push({"id":1,"nom":"Véhicule prioritaire","effet":"prioritaire","nbdispo":1,"img":"prio.PNG"});
-    this.pioche.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
-    this.main.push({"id":2,"nom":"As du volant","effet":"as","nbdispo":1,"img":"as.PNG"});
+    this.pioche.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});*/
+    /*this.main.push({"id":2,"nom":"As du volant","effet":"as","nbdispo":1,"img":"as.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":10,"nom":"Réparations","effet":"reparation","nbdispo":3,"img":"reparations.PNG"});
-    this.defosse.push({"id":11,"nom":"Accident","effet":"accident","nbdispo":2,"img":"accident.PNG"});
-    this.displaycard();
+    this.defosse.push({"id":11,"nom":"Accident","effet":"accident","nbdispo":2,"img":"accident.PNG"});*/
+    //this.displaycard();
   },
   methods: {
     displaycard(){
@@ -70,7 +77,21 @@ export default {
     dragover(e){
       console.log("dragover");
       e.preventDefault();
-    }
+    },
+    getDataPartie(){
+      PartieService.getPartieByCode(this.codePartie)
+          .then(response => {
+            this.partie = response;
+            PiocheService.getPiocheByCode(this.partie.codePartie).then(rep => {
+              console.log(rep);
+              this.pioche = rep;
+            })
+
+          })
+          .catch(error => {
+            console.log(error);
+          })
+    },
   }
 }
 </script>

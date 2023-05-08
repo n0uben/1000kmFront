@@ -19,7 +19,7 @@ const router = createRouter({
             component:ConnexionForm
         },
         {
-            path: '/game',
+            path: '/game/:code',
             component: GameBoard
         },
         {

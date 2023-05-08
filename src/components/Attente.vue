@@ -1,6 +1,11 @@
 <script>
 import router from "@/router/index.js";
 import PartieService from "@/services/PartieService.js";
+import io from 'socket.io-client';
+import axios from "axios";
+import PiocheService from "@/services/PiocheService.js";
+
+const socket = io('http://localhost:3080');
 export default {
     name: "Attente",
     data() {
@@ -10,12 +15,12 @@ export default {
             nbJoueurs: 1,
             partie: null,
             joueurs: null,
+            isHost:false
         }
     },
 
     mounted() {
-        this.getDataPartie();
-        console.log("code de partie"+this.codePartie);
+      this.getDataPartie();
     },
 
     methods: {
@@ -23,13 +28,11 @@ export default {
           PartieService.getPartieByCode(this.codePartie)
               .then(response => {
                 this.partie = response;
+                this.isHost=(response.joueurs[0].pseudo==this.pseudo);
                 this.nbJoueurs=response.joueurs.length;
                 this.joueurs=response.joueurs;
                 this.setJoueurs(JSON.parse(localStorage.getItem('user')),this.partie);
-                //PartieService.quitter(JSON.parse(localStorage.getItem('user')),this.partie)
-                window.addEventListener("beforeunload", function(event) {
-                  PartieService.quitter(JSON.parse(localStorage.getItem('user')),this.partie);
-                });
+                this.checkEstLancee();
               })
               .catch(error => {
                 console.log(error);
@@ -45,10 +48,31 @@ export default {
         },
         handleUnload(){
           PartieService.quitter(JSON.parse(localStorage.getItem('user')),this.partie);
+        },
+        onClickLancer(){
+          PartieService.lancer(this.partie);
+        },
+        checkEstLancee(){
+          setInterval(() => {//verifie si la partie est lancée
+            axios.get('http://localhost:8080/partie/'+this.partie.idPartie)
+                .then(response => {
+                  console.log("verifie si lancée : "+response.estLancee);
+                  if((response.data.estLancee==true)&&(this.partie.joueurs.length>=2)){
+                    console.log("bien lancée");
+                    router.push({path:"/game/"+this.codePartie});
+                  }
+                })
+                .catch(error => {
+                  console.error('partie introuvalble', error);
+                });
+          }, 3000);
         }
     },
   beforeRouteLeave(to, from, next) {
-    window.addEventListener("beforeunload", this.handleUnload);
+      console.log("vers : "+to.path);
+      if(to.path.includes("game")==false){//si le joueur va vers game il ne quitte pas la partie
+        this.handleUnload();
+      }
     next();
   },
 }
@@ -78,7 +102,7 @@ export default {
                 <p id="joueur4" class="mt-4 py-2"
                    style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">En attente...</p>
 <!--                <button class="py-2 px-3 mx-3 mt-4">Inviter</button>-->
-                <router-link to="/game"><button class="py-2 px-3 mx-3">Lancer</button></router-link>
+                <button class="py-2 px-3 mx-3" @click="onClickLancer" v-if="isHost">Lancer</button>
             </div>
             <div class="col-4 bg-primary text-left">
                 <h2>Réglages</h2>

@@ -1,6 +1,7 @@
 import http from '../main'
 import axios from "axios";
 import router from "@/router/index.js";
+import PiocheService from "@/services/PiocheService.js";
 
 class PartieService {
     getAll() {
@@ -39,7 +40,7 @@ class PartieService {
             .then(response => {
                 console.log("partie recupérée : "+response);
                 let partie = response;
-                if(this.estDansPartie(user,partie)==-1){
+                if((this.estDansPartie(user,partie)==-1)&&(partie.joueurs.length<4)){
                     partie.joueurs.push(user);
                     console.log("partie avec joueur ajouté : "+response.joueurs);
                     this.modifier(partie)
@@ -95,6 +96,17 @@ class PartieService {
                 console.log("success");
             })
             .catch(error => {console.log(error);})
+    }
+
+    lancer(partie){
+        partie.estLancee=true;
+        this.modifier(partie).then(() =>{
+            console.log("partie lancée")
+            PiocheService.creer(partie).then(() => {//crée une pioche
+                router.push({path:"/game/"+partie.codePartie});
+            });
+        })
+            .catch(err => {console.log("la partie n'a pas été lancée")})
     }
 }
 
