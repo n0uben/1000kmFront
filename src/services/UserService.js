@@ -78,7 +78,4 @@ class UserService {
 /*module.exports = {
     UserService
 }*/
-
-
-
 export default new UserService();

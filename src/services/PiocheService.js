@@ -14,20 +14,23 @@ class PiocheService{
     }
 
     async getPiocheByCode(code){
-        this.getAll().then(r => {
-            let found=null;
-            r.data.forEach(pioche => {
-                if(pioche.partie.codePartie==code){
-                    found=pioche;
-                    return;
-                }
-            })
-            return found;
-        })
-            .catch(err => {
-                console.log(err);
-                return null;
-            })
+        let found = null;
+            return new Promise((resolve, reject) => {
+                axios.get('http://localhost:8080/pioche')
+                    .then(response => {
+                        response.data.forEach(pioche => {
+
+                            if(pioche.partie.codePartie==code){
+                                found=pioche;
+                                return;
+                            }
+                        });
+                        resolve(found);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    });
+            });
     }
 }
 

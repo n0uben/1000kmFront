@@ -20,18 +20,14 @@ export default {
     }
   },
   mounted () {
-    this.getDataPartie();
-    /*this.pioche.push({"id":12,"nom":"25 Km","effet":"km","nbdispo":4,"img":"25kmh.PNG"});
-    this.pioche.push({"id":1,"nom":"Véhicule prioritaire","effet":"prioritaire","nbdispo":1,"img":"prio.PNG"});
-    this.pioche.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});*/
-    /*this.main.push({"id":2,"nom":"As du volant","effet":"as","nbdispo":1,"img":"as.PNG"});
+    this.main.push({"id":2,"nom":"As du volant","effet":"as","nbdispo":1,"img":"as.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":10,"nom":"Réparations","effet":"reparation","nbdispo":3,"img":"reparations.PNG"});
-    this.defosse.push({"id":11,"nom":"Accident","effet":"accident","nbdispo":2,"img":"accident.PNG"});*/
-    //this.displaycard();
+    this.defosse.push({"id":11,"nom":"Accident","effet":"accident","nbdispo":2,"img":"accident.PNG"});
+    this.getDataPartie();
   },
   methods: {
     displaycard(){
@@ -39,7 +35,7 @@ export default {
         console.log("src/assets/images/Cartes/"+this.main[i]["img"]);
         document.getElementById("carte"+(i+1)).src=this.pathImgs+this.main[i]["img"];
       }
-      document.getElementById("cartepioche").src=this.pathImgs+this.pioche[this.pioche.length-1]["img"];
+      //document.getElementById("cartepioche").src=this.pathImgs+this.pioche[this.pioche.cartes.length-1]["img"];
       document.getElementById("cartedefosse").src=this.pathImgs+this.defosse[this.defosse.length-1]["img"];
     },
 
@@ -69,7 +65,7 @@ export default {
         this.droppedCards[this.droppedCards.length-1].src=this.pathImgs+this.splitSrc(e.target.src);
         this.droppedCards.pop();
         this.pioche.pop();
-        cartepioche.src=this.pathImgs+this.pioche[this.pioche.length-1]["img"];
+        cartepioche.src=this.pathImgs+this.pioche.cartes[this.pioche.cartes.length-1]["img"];
       }
 
     },
@@ -83,8 +79,9 @@ export default {
           .then(response => {
             this.partie = response;
             PiocheService.getPiocheByCode(this.partie.codePartie).then(rep => {
-              console.log(rep);
               this.pioche = rep;
+              console.log("nb cartes pioche = "+this.pioche.cartes.length);//il y a bien 106 cartes (110-4 cartes joker)
+              this.displaycard();
             })
 
           })

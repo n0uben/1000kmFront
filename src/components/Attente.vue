@@ -15,7 +15,7 @@ export default {
             nbJoueurs: 1,
             partie: null,
             joueurs: null,
-            isHost:false
+            isHost:false,
         }
     },
 
@@ -53,20 +53,26 @@ export default {
           PartieService.lancer(this.partie);
         },
         checkEstLancee(){
-          setInterval(() => {//verifie si la partie est lancée
+          const interval = setInterval(() => {//verifie si la partie est lancée
             axios.get('http://localhost:8080/partie/'+this.partie.idPartie)
                 .then(response => {
                   console.log("verifie si lancée : "+response.estLancee);
-                  if((response.data.estLancee==true)&&(this.partie.joueurs.length>=2)){
+                  if((response.data.estLancee==true)&&(this.partie.joueurs.length>=2)){//si la partie se lance
                     console.log("bien lancée");
+                    clearInterval(interval);//met fin à la requete à intervale
                     router.push({path:"/game/"+this.codePartie});
+                  }
+                  if(response.data.joueurs.length>this.nbJoueurs){//si un joueur a rejoint
+                    console.log("nouveau joueur");
+                    this.getDataPartie();
                   }
                 })
                 .catch(error => {
                   console.error('partie introuvalble', error);
                 });
           }, 3000);
-        }
+        },
+
     },
   beforeRouteLeave(to, from, next) {
       console.log("vers : "+to.path);
