@@ -34,9 +34,6 @@
 
 <script>
 import userService from "@/services/UserService";
-import partieService from "@/services/PartieService.js";
-import router from "@/router/index.js";
-import data from "bootstrap/js/src/dom/data.js";
 
 export default {
     name: "ConnexionForm",
@@ -55,25 +52,9 @@ export default {
             }
 
             userService.login(this.pseudo, this.motDePasse)
-                // .then(response => response.json())
-                .then(user => {
-                    //on crée une partie avec les valeurs par défaut (4 joueurs, 45 secondes par tour, chaine vide pour le codepartie)
-                  location.assign("/");
-                  //router.push({path:"/"});
-                    /*partieService.creer(user)
-                        // une fois la reponse recue, on redirige vers le lobby dattente
-                        //mieux vaut utiliser router push que location.assign(), car feature de vuejs
-                        //permet de conserver
-                        //.then(() => router.push({path: "/attente"}));
-                        .then(data=> {
-                          router.push({path:`/attente/${data.data.codePartie}`});
-                        });*/
 
-                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    //A NOTER : DEPLACER DANS /ATTENTE LA CREATION DE PARTIE
-                    // A LA CONDITION QUAUCUN CODE DE PARTIE NEST PRESENT DANS LURL
-                    // SINON RECUP INFOS PARTIE A PARTIR DU CODE
-                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                .then(user => {
+                  location.assign("/");
                 })
         }
     }

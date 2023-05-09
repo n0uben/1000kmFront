@@ -100,6 +100,7 @@ class PartieService {
 
     lancer(partie){
         partie.estLancee=true;
+        console.log("login estlacee "+partie.estLancee);
         this.modifier(partie).then(() =>{
             console.log("partie lancée")
             PiocheService.creer(partie).then(() => {//crée une pioche

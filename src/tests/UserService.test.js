@@ -1,6 +1,6 @@
 
 import UserService from "../services/UserService.js";
-import {afterAll, beforeAll, beforeEach, describe, expect, it, jest} from "@jest/globals";
+import {beforeEach, describe, expect, it, jest} from "@jest/globals";
 
 
 describe('userservice', () => {
@@ -48,16 +48,6 @@ describe('userservice', () => {
             expect(result).toEqual(mockUser);
             expect(localStorage.getItem('user')).toEqual(JSON.stringify(mockUser));
         });
-
-        /*it('Logout quand un user est connecté', () => {
-            let userService = new UserService();
-            localStorage.setItem('user','test');
-            userService.isConnected=true;
-            userService.logout();
-            expect(userService.isConnected).toBe(false);
-            expect(localStorage.getItem('user')).toBeNull();
-            expect(jest.isMockFunction(window.location.assign)).toBeCalledTimes(1);
-        });*/
 
     });
 });

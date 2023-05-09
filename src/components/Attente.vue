@@ -1,11 +1,11 @@
 <script>
 import router from "@/router/index.js";
 import PartieService from "@/services/PartieService.js";
-import io from 'socket.io-client';
-import axios from "axios";
-import PiocheService from "@/services/PiocheService.js";
 
-const socket = io('http://localhost:3080');
+import axios from "axios";
+
+
+
 export default {
     name: "Attente",
     data() {
@@ -53,11 +53,14 @@ export default {
           PartieService.lancer(this.partie);
         },
         checkEstLancee(){
+
           const interval = setInterval(() => {//verifie si la partie est lancée
+            console.log("idpartie2 "+this.partie.idPartie);
             axios.get('http://localhost:8080/partie/'+this.partie.idPartie)
                 .then(response => {
-                  console.log("verifie si lancée : "+response.estLancee);
-                  if((response.data.estLancee==true)&&(this.partie.joueurs.length>=2)){//si la partie se lance
+;
+                  console.log("verifie si lancée : "+response);
+                  if((response.data.estLancee)&&(this.partie.joueurs.length>=2)){//si la partie se lance
                     console.log("bien lancée");
                     clearInterval(interval);//met fin à la requete à intervale
                     router.push({path:"/game/"+this.codePartie});
@@ -76,7 +79,7 @@ export default {
     },
   beforeRouteLeave(to, from, next) {
       console.log("vers : "+to.path);
-      if(to.path.includes("game")==false){//si le joueur va vers game il ne quitte pas la partie
+      if(!to.path.includes("game")){//si le joueur va vers game il ne quitte pas la partie
         this.handleUnload();
       }
     next();
@@ -107,7 +110,6 @@ export default {
                    style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">En attente...</p>
                 <p id="joueur4" class="mt-4 py-2"
                    style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">En attente...</p>
-<!--                <button class="py-2 px-3 mx-3 mt-4">Inviter</button>-->
                 <button class="py-2 px-3 mx-3" @click="onClickLancer" v-if="isHost">Lancer</button>
             </div>
             <div class="col-4 bg-primary text-left">
