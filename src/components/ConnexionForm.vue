@@ -58,7 +58,8 @@ export default {
                 // .then(response => response.json())
                 .then(user => {
                     //on crée une partie avec les valeurs par défaut (4 joueurs, 45 secondes par tour, chaine vide pour le codepartie)
-                  router.push({path:"/"});
+                  location.assign("/");
+                  //router.push({path:"/"});
                     /*partieService.creer(user)
                         // une fois la reponse recue, on redirige vers le lobby dattente
                         //mieux vaut utiliser router push que location.assign(), car feature de vuejs
